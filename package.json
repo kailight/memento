@@ -1,7 +1,7 @@
 {
-  "name": "memento",
+  "name": "Memento",
   "version": "1.0.0",
-  "description": "A Vue.js project",
+  "description": "VueJs countdown component",
   "author": "KaiLight <lastgrunger@gmail.com>",
   "private": true,
   "scripts": {
@@ -51,8 +51,8 @@
     "webpack-merge": "^4.1.0"
   },
   "engines": {
-    "node": ">= 6.0.0",
-    "npm": ">= 3.0.0"
+    "node": "= 8.5.0",
+    "npm": "= 6.0.0"
   },
   "browserslist": [
     "> 1%",
