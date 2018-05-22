@@ -57,7 +57,8 @@
 </template>
 
 <script>
-import Memento from './components/Memento'
+// import Memento from './components/Memento'
+import Memento from '@kailight/memento'
 
 export default {
   name: 'App',
