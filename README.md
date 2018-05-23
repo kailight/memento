@@ -2,9 +2,12 @@
 
 > Countdown component for VueJs
 
-Note this is development bundle, on npm module
+Note this is development bundle, you can download npm module with
+```bash
+npm install @kailight/memento
+```
 
-See demo on [heroku](http://heroku.com)
+See demo on [heroku](http://kailight-memento.herokuapp.com)
 
 ## Build Setup
 

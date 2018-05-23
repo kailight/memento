@@ -4,61 +4,70 @@
     <div class="motto">Easy to use VueJs countdown component</div>
 
     <div class="controls">
-      <label>Format <input type="text" v-model="format"/></label> <label>Time <input type="text" v-model="time"/></label>
+      <!-- <label>Format <input type="text" v-model="format"/></label> -->
+      <input type="text" style="width: 20rem" size="20" v-model="time"/>
     </div>
-    <div>
-      <pre><code>&lt;memento :t="time"&gt;
-  {{format}}
-&lt;/memento&gt;</code></pre>
-    </div>
-    <memento style="margin: 2rem auto; font-family: sans-serif; font-size: 1.6rem;" :t="time" :f="format">
-      {{format}}
-    </memento>
+
+    <memento style="margin: 2rem auto; font-family: sans-serif; font-size: 1.6rem;" :t="time"></memento>
+
     <div class="docs">
       <h3>Installation</h3>
       <p>Install npm package with</p>
-      <pre><code>> npm i memento</code></pre>
+      <pre><code>> npm install @kailight/memento</code></pre>
       <p>Require memento in vue file</p>
-      <pre><code>require('memento');</code></pre>
+      <pre><code>var Memento = require('@kailight/memento').default;</code></pre>
       <p>or</p>
-      <pre><code>import Memento from 'memento';</code></pre>
+      <pre><code>import Memento from '@kailight/memento';</code></pre>
       <p>Register component in global Vue instance or another component</p>
       <pre><code>components: {
   'memento' : Memento,
   // other components
 },</code></pre>
       <h3>Basic usage</h3>
-      <p>Basic usage takes only</p>
-      <pre><code>&lt;memento :t="time"&gt;format&lt;/memento&gt;</code></pre>
-      <p>Format entries are:</p>
-      <ul>
-        <li><b>#s</b> - seconds</li>
-        <li><b>#m</b> - minutes</li>
-        <li><b>#h</b> - hours</li>
-        <li><b>#d</b> - days</li>
-        <li><b>#ss</b> - seconds with leading zero</li>
-        <li><b>#mm</b> - minutes with leading zero</li>
-        <li><b>#hh</b> - hours with leading zero</li>
-        <li><b>#dd</b> - days with leading zero</li>
-      </ul>
-      <p><i>Note:</i>If countdown is larger than one hour</p>
+      <div>
+        <pre><code>&lt;memento t="{{time}}"&gt;&lt;/memento&gt;</code></pre>
+      </div>
+      <memento :t="time"></memento>
 
       <h3>Advanced usage</h3>
-      <p>If you would like to change format on the fly add :f="format" attribute, like this</p>
-      <pre><code>&lt;memento :t="time" :f="format"&gt;&lt;/memento&gt;</code></pre>
-
-      <h3>Master usage</h3>
-      <p>I decided not to track slot changes and disabled html content other than basic text.</p>
-      <p>As this would lead to more advanced coding and break the simplicity.</p>
-      <p>Possibly in future as option will enable</p>
-      <pre><code>&lt;memento&gt;&lt;h1&gt;#h&lt;/h1&gt;&lt;/memento&gt;</code></pre>
+      <pre><code>&lt;memento style="margin: 2rem auto; font-family: sans-serif; font-size: 1.6rem;" t="{{time}}"&gt;
+&lt;template slot-scope="m">
+  &lt;span style="color: #336699">{{mmm}}&lt;/span> :
+  &lt;span style="color: #996633">{{hhh}}&lt;/span> :
+  &lt;span style="color: #993366">{{sss}}&lt;/span>
+&lt;/template>
+&lt;/memento&gt;</code></pre>
+    </div>
+    <memento style="margin: 2rem auto; font-family: sans-serif; font-size: 1.6rem;" :t="time">
+      <template slot-scope="m">
+        <span style="color: #996633">{{m.hh}}</span> :
+        <span style="color: #336699">{{m.mm}}</span> :
+        <span style="color: #993366">{{m.ss}}</span>
+      </template>
+    </memento>
+    <div style="text-align: left">
+      <p>
+        We can pass custom template to memento using slots.
+        In this case we have more control over display and entities
+      </p>
+      <p>The entities are:</p>
+      <ul>
+        <li><b>s</b> - seconds</li>
+        <li><b>m</b> - minutes</li>
+        <li><b>h</b> - hours</li>
+        <li><b>d</b> - days</li>
+        <li><b>ss</b> - seconds with leading zero</li>
+        <li><b>mm</b> - minutes with leading zero</li>
+        <li><b>hh</b> - hours with leading zero</li>
+        <li><b>dd</b> - days with leading zero</li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script>
-// import Memento from './components/Memento'
-import Memento from '@kailight/memento'
+import Memento from './components/Memento'
+// import Memento from '@kailight/memento'
 
 export default {
   name: 'App',
@@ -67,8 +76,11 @@ export default {
   },
   data() {
     return {
-      format: "#h hours #m minutes #s seconds to MEMENTO",
-      time: "2018-12-31 23:59:59 GMT+3"
+      format: "Its #h hours #m minutes #s seconds to MEMENTO",
+      time: "2018-12-31 23:59:59 GMT+3",
+      hhh : '{{m.hh}}',
+      mmm : '{{m.mm}}',
+      sss : '{{m.ss}}'
     }
   }
 }
@@ -100,7 +112,7 @@ h2 {
 
 .docs {
   text-align: left;
-  margin-top: 3rem;
+  margin-top: 5rem;
 }
 
 .controls {
