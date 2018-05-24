@@ -3,12 +3,8 @@
   .block.intro
     div
       h1 Memento
+      .version 0.0.8
       .motto Simple VueJs countdown component
-      .version 0.0.4
-
-      .controls
-      // <label>Format <input type="text" v-model="format"/></label>
-        input(type="text" style="width: 20rem" size="20" v-model="time")
 
       memento.standard(:t="time")
 
@@ -33,17 +29,23 @@
         |   'memento' : Memento,
         | // other components
 
-    h3 Basic usage
+
+    h3.usage Basic usage
+    .controls
+      // <label>Format <input type="text" v-model="format"/></label>
+      input(type="text" style="width: 20rem" size="20" v-model="time")
     pre
       code
         | &lt;memento t="{{time}}"&gt;&lt;/memento&gt;
     memento(:t="time")
 
-    h3 Advanced usage
+    h3.usage Advanced usage
     pre
       code
-        | &lt;memento style="text-align: center" t="{{time}}"&gt;%dd days %hh hours %mm minutes and %ss seconds left&lt;/memento&gt;
-    memento(style="text-align: center", :t="time") %dd days %hh hours %mm minutes and %ss seconds left
+        | &lt;memento style="text-align: center; font-weight: bold" t="{{time}}"&gt;
+        |   %dd days %hh hours %mm minutes and %ss seconds left
+        | &lt;/memento&gt;
+    memento(style="text-align: center; font-weight: bold", :t="time") %dd days %hh hours %mm minutes and %ss seconds left
 
     p We can stylize output
 
@@ -77,7 +79,7 @@
         b %dd
         | - days with leading zeros
 
-    h3 Pro usage
+    h3.usage Pro usage
     pre
       code
         | &lt;memento style="margin: 2rem auto; font-family: sans-serif; font-size: 1.6rem;" t="{{time}}"&gt;
@@ -89,8 +91,8 @@
         | &lt;/memento&gt;</code></pre>
     memento(style="margin: 2rem auto; font-family: sans-serif; font-size: 1.6rem; text-align: center", :t="time")
       template(slot-scope="m")
-        span(style="color: #996633") {{m.hh}} :
-        span(style="color: #336699") {{m.mm}} :
+        span(style="color: #996633") {{m.hh}} :&nbsp;
+        span(style="color: #336699") {{m.mm}} :&nbsp;
         span(style="color: #993366") {{m.ss}}
 
     p
@@ -170,6 +172,7 @@ color2 = rgba(0,128,128,1)
     display:flex;
     flex-direction row
     justify-content:center;
+    align-items center
     color: #fff;
     // background: #333;
 
@@ -179,15 +182,21 @@ color2 = rgba(0,128,128,1)
     background: -o-radial-gradient(center, ellipse cover, color1 0%, color2 100%); /* opera 11.10+ */
     background: -ms-radial-gradient(center, ellipse cover, color1 0%, color2 100%); /* ie10+ */
     background:radial-gradient(ellipse at center, color1 0%, color2 100%); /* w3c */
-    >div
-      flex auto
+    > div
       flex-direction column
+      align-self auto
+      position relative
     h1
-      color: #ffc;
+      color: #fff;
+    .version
+      position relative
+      top -5rem
+      left 10.5rem
+
   &.docs
     text-align: left;
     width: 800px;
-    margin: auto;
+    margin: 4rem auto;
 
 h1
   font-family: Montserrat, sans-serif;
@@ -197,7 +206,10 @@ h1
 h3
   font-family: Montserrat, sans-serif;
   font-size: 1.6rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  margin-top 4rem
+  padding-bottom 0.5rem
+  border-bottom 0.1rem solid color2
 
 .motto
   margin-bottom: 2rem;

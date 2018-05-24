@@ -126,12 +126,10 @@ export default {
       return r
     },
     rawFormat() {
-      let use = !!(this.$slots.default && this.$slots.default[0] && this.$slots.default[0].text)
-      return use
+      return this.$slots && this.$slots.default && this.$slots.default[0] && this.$slots.default[0].text ? true : false;
     },
     format () {
-      let f = this.f ? this.f : (this.rawFormat ? this.$slots.default[0].text : this.defaultFormat);
-      return f;
+      return this.rawFormat ? this.$slots.default[0].text : this.defaultFormat;
     },
     diff () {
       if (!this.then || !this.now) {
