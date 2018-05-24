@@ -10,7 +10,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "@kailight/memento": "^0.0.8",
+    "@kailight/memento": "=0.0.8",
     "express": "=4.16.3",
     "pug-loader": "^2.4.0",
     "stylus-loader": "^3.0.2",
