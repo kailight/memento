@@ -1,6 +1,7 @@
 <template>
 <div class="memento-countdown">
-  <slot :s="s" :m="m" :h="h" :d="d" :ss="ss" :mm="mm" :hh="hh" :dd="dd">{{h}} : {{m}} : {{s}}</slot>
+  <slot v-if="!rawFormat" :s="s" :m="m" :h="h" :d="d" :ss="ss" :mm="mm" :hh="hh" :dd="dd">{{hh}} : {{mm}} : {{ss}}</slot>
+  <div v-if="rawFormat">{{result}}</div>
 </div>
 </template>
 
@@ -14,7 +15,7 @@ export default {
   data () {
     return {
       now : '',
-      defaultFormat : '#h : #m : #s',
+      defaultFormat : '%h : %m : %s',
       d : '0',
       h : '0',
       m : '0',
@@ -124,12 +125,12 @@ export default {
       }
       return r
     },
-    useSlot() {
+    rawFormat() {
       let use = !!(this.$slots.default && this.$slots.default[0] && this.$slots.default[0].text)
       return use
     },
     format () {
-      let f = this.f ? this.f : (this.useSlot ? this.$slots.default[0].text : this.defaultFormat);
+      let f = this.f ? this.f : (this.rawFormat ? this.$slots.default[0].text : this.defaultFormat);
       return f;
     },
     diff () {
@@ -182,37 +183,20 @@ export default {
       return [d,h,m,s];
 
     },
-    __d() {
-      return this.diff[0]
-    },
-    __h() {
-      return this.diff[1]
-    },
-    __m() {
-      return this.diff[2]
-    },
-    __s() {
-      return this.diff[3]
-    },
-    __dd() {
-      if (this.diff && this.diff[0]) {
-        return (''+this.diff[0].length == 1) ? '0'+this.diff[0] : this.diff[0]
+    result() {
+      let format = this.defaultFormat
+      if (this.rawFormat) {
+        format = this.$slots.default[0].text
       }
-    },
-    __hh() {
-      if (this.diff && this.diff[1]) {
-        return (''+this.diff[1].length == 1) ? '0'+this.diff[1] : this.diff[1]
-      }
-    },
-    __mm() {
-      if (this.diff && this.diff[2]) {
-        return (''+this.diff[2].length == 1) ? '0'+this.diff[2] : this.diff[2]
-      }
-    },
-    _ss() {
-      if (this.diff && this.diff[3]) {
-        return (''+this.diff[3].length == 1) ? '0'+this.diff[3] : this.diff[3]
-      }
+      format = format.replace(/%ss/g,this.ss)
+      format = format.replace(/%mm/g,this.mm)
+      format = format.replace(/%hh/g,this.hh)
+      format = format.replace(/%dd/g,this.dd)
+      format = format.replace(/%s/g,this.s)
+      format = format.replace(/%m/g,this.m)
+      format = format.replace(/%h/g,this.h)
+      format = format.replace(/%d/g,this.d)
+      return format
     }
   },
   mounted() {
